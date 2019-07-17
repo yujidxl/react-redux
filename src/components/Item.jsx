@@ -1,23 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
-import { minusFn } from "../actions"
+import { toggleFn } from "../actions"
+import { ALL, COMPLETED, IMCOMPLETE } from "../reducers/activeTypes/filter"
 
 const Item = (props) => {
-  const minusItemFn = (id) => {
-    props.minusFn(id);
+  const toggleFn = (id) => {
+    props.toggleFn(id);
+    console.log(props);
   }
 
   return (
       <li>
-        <span>{props.content}</span>
-        <button onClick={() => minusItemFn(props.id)} style={{ 'display': 'inline-block', 'marginLeft': 40 }}>minus</button>
+        <span style={{textDecoration: props.complete == COMPLETED ? 'underline': 'none'}}>{props.content}</span>
+        <button onClick={() => toggleFn(props.id)} style={{ 'display': 'inline-block', 'marginLeft': 40 }}>toggle</button>
       </li>
     )
   }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    minusFn: (...args) => dispatch(minusFn(...args))
+    toggleFn: (...args) => dispatch(toggleFn(...args))
   }
 }
 
